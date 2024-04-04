@@ -1,21 +1,16 @@
 import React from "react";
 import CartItem from "../components/CartItem";
 import { useSelector } from "react-redux";
+import {
+  getAllCartItems,
+  getCartErrorState,
+  getCartLoadingState,
+} from "../store/slices/cartSlice.jsx";
 
 export default function Cart() {
-  const cartItems = useSelector(({ products, cartItems }) => {
-    return cartItems.list
-      .map(({ productId, quantity }) => {
-        let cartProduct = products.list.find(
-          (product) => product.id === productId
-        );
-        return { ...cartProduct, quantity };
-      })
-      .filter(({ title }) => title);
-  });
-  let isLoading = useSelector((state) => state.cartItems.loading);
-  let isError = useSelector((state) => state.cartItems.error);
-  console.log(isError);
+  const cartItems = useSelector(getAllCartItems);
+  let isLoading = useSelector(getCartLoadingState);
+  let isError = useSelector(getCartErrorState);
 
   return isError ? (
     <h1>Error fetching data. Please try again later.</h1>

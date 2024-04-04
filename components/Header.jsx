@@ -12,21 +12,30 @@ import {
   fetchCartitems,
   fetchCartitemError,
 } from "../store/slices/cartSlice.jsx";
+import { fetchData } from "../store/middleware/api.jsx";
 export default function Header() {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchProduct());
+    dispatch(
+      fetchData({
+        url: "products",
+        onStart: fetchProduct.type,
+        onSuccess: updateAllProducts.type,
+        onError: fetchProductError.type,
+      })
+    );
+    // dispatch(fetchProduct());
 
-    fetch("https://fakestoreapi.com/products")
-      .then((res) => res.json())
-      .then((res) => dispatch(updateAllProducts(res)))
-      .catch((error) => dispatch(fetchProductError()));
+    // fetch("https://fakestoreapi.com/products")
+    //   .then((res) => res.json())
+    //   .then((res) => dispatch(updateAllProducts(res)))
+    //   .catch((error) => dispatch(fetchProductError()));
 
-    dispatch(fetchCartitems());
-    fetch("https://fakestoreapi.com/carts/5")
-      .then((res) => res.json())
-      .then((res) => dispatch(LoadCartitems(res)))
-      .catch((error) => dispatch(fetchCartitemError(error)));
+    // dispatch(fetchCartitems());
+    // fetch("https://fakestoreapi.com/carts/5")
+    //   .then((res) => res.json())
+    //   .then((res) => dispatch(LoadCartitems(res)))
+    //   .catch((error) => dispatch(fetchCartitemError(error)));
   }, []);
 
   const cartItems = useSelector((state) => state.cartItems.list);
