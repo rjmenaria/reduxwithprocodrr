@@ -24,18 +24,15 @@ export default function Header() {
         onError: fetchProductError.type,
       })
     );
-    // dispatch(fetchProduct());
 
-    // fetch("https://fakestoreapi.com/products")
-    //   .then((res) => res.json())
-    //   .then((res) => dispatch(updateAllProducts(res)))
-    //   .catch((error) => dispatch(fetchProductError()));
-
-    // dispatch(fetchCartitems());
-    // fetch("https://fakestoreapi.com/carts/5")
-    //   .then((res) => res.json())
-    //   .then((res) => dispatch(LoadCartitems(res)))
-    //   .catch((error) => dispatch(fetchCartitemError(error)));
+    dispatch(
+      fetchData({
+        url: "carts/5",
+        onStart: fetchCartitems.type,
+        onSuccess: LoadCartitems.type,
+        onError: fetchCartitemError.type,
+      })
+    );
   }, []);
 
   const cartItems = useSelector((state) => state.cartItems.list);

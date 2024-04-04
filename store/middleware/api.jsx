@@ -4,7 +4,7 @@ export const apiMiddleware =
   (action) => {
     const BASE_URL = "https://fakestoreapi.com";
     if (action.type === "api/makeCall") {
-      next(action);
+      next(action); //it is for debugging it does not make any changes
       const { url, onStart, onSuccess, onError } = action.payload;
       dispatch({
         type: onStart,
