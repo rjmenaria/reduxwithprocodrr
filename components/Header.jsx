@@ -2,37 +2,31 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import CartIcon from "../assets/cart-icon.svg";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  updateAllProducts,
-  fetchProduct,
-  fetchProductError,
-} from "../store/slices/productsSlice.jsx";
-import {
-  LoadCartitems,
-  fetchCartitems,
-  fetchCartitemError,
-} from "../store/slices/cartSlice.jsx";
+import { fetchProductsData } from "../store/slices/productsSlice.jsx";
+import { fetchCartItemsData } from "../store/slices/cartSlice.jsx";
 import { fetchData } from "../store/middleware/api.jsx";
 export default function Header() {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(
-      fetchData({
-        url: "products",
-        onStart: fetchProduct.type,
-        onSuccess: updateAllProducts.type,
-        onError: fetchProductError.type,
-      })
-    );
+    // dispatch(
+    //   fetchData({
+    //     url: "products",
+    //     onStart: fetchProduct.type,
+    //     onSuccess: updateAllProducts.type,
+    //     onError: fetchProductError.type,
+    //   })
+    // );
+    dispatch(fetchProductsData());
+    dispatch(fetchCartItemsData());
 
-    dispatch(
-      fetchData({
-        url: "carts/5",
-        onStart: fetchCartitems.type,
-        onSuccess: LoadCartitems.type,
-        onError: fetchCartitemError.type,
-      })
-    );
+    // dispatch(
+    //   fetchData({
+    //     url: "carts/5",
+    //     onStart: fetchCartitems.type,
+    //     onSuccess: LoadCartitems.type,
+    //     onError: fetchCartitemError.type,
+    //   })
+    // );
   }, []);
 
   const cartItems = useSelector((state) => state.cartItems.list);

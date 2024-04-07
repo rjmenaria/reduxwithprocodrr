@@ -26,6 +26,14 @@ export const geaAllProduct = (state) => state.products.list;
 export const getProductErrorState = (state) => state.products.err;
 export const getProductLoadingState = (state) => state.products.loading;
 
-export const { updateAllProducts, fetchProduct, fetchProductError } =
-  slice.actions;
+const { updateAllProducts, fetchProduct, fetchProductError } = slice.actions;
+//redux thunk creator
+export const fetchProductsData = () => (dispatch) => {
+  dispatch(fetchProduct());
+  fetch("https://fakestoreapi.com/products")
+    .then((res) => res.json())
+    .then((data) => dispatch(updateAllProducts(data)))
+    .catch(() => dispatch(fetchProductError()));
+};
+
 export default slice.reducer;
