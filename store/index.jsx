@@ -12,9 +12,5 @@ export const store = configureStore({
     wishList: wishListReducer,
   },
   //this how can we use default middleware and our coutom middle at the one time
-  middleware: (getDefaultMiddleware) => [
-    ...getDefaultMiddleware(),
-    func,
-    logger,
-  ],
+  middleware: (getDefaultMiddleware) => [...getDefaultMiddleware()],
 });
